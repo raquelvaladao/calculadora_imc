@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Calculator</string>
+    <string name="idade">Idade</string>
+    <string name="peso">Peso</string>
+    <string name="altura">Altura</string>
+    <string name="alturanum_sr">150</string>
+    <string name="cm">cm</string>
+    <string name="entradaPeso"></string>
+    <string name="resultadoimc">Resultado placeholder</string>
+    <string name="voltar">Recalcular IMC</string>
+    <string name="resultadogenero">Gênero</string>
+    <string name="btcalculomain">Calcular meu IMC</string>
+    <string name="zerokg">0 kg</string>
+    <string name="textViewShowResult" />
+    <string name="editAltura" />
+
+</resources>
