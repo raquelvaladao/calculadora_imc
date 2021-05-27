@@ -5,21 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/mid_black"
-    tools:context=".BomImc">
-
-    <Button
-        android:id="@+id/voltar"
-        android:layout_width="361dp"
-        android:layout_height="62dp"
-        android:layout_marginTop="516dp"
-        android:fontFamily="@font/product_sans_regular"
-        android:text="@string/voltar"
-        android:textColorHint="#181515"
-        android:textSize="18sp"
-        app:backgroundTint="@color/green_primary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".BomImcActivity">
 
     <TextView
         android:id="@+id/resultadoimc"
