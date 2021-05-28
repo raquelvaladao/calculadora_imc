@@ -21,9 +21,9 @@ import com.raquel.calculator.databinding.ActivityMainBinding
             val alturaSeekBar = binding.seekBar
             //val homem = binding.imageButton7 //BOTAO HOMEM MULHER AINDA NAO IMPLEMENTADO
             //val mulher = binding.imageButton6 //BOTAO HOMEM MULHER AINDA NAO IMPLEMENTADO
-            //val pesoFun = binding.entradaPeso
+
             val alturaFun = binding.alturaSeekbarReferencia
-           // val tirar = binding.editTextNumber
+
 
             alturaSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                 override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
@@ -40,34 +40,17 @@ import com.raquel.calculator.databinding.ActivityMainBinding
                 }
             })
 
-            //VOU PEGAR A TEXTEDIT E BOTAR SNEEKBAR NO LUGAR
+
             btDeCalcular.setOnClickListener {
                 val entradaPesoID = binding.entradaPeso.text.toString()
 
                 if (entradaPesoID.isEmpty() /*|| homem.isPressed.not() || mulher.isPressed.not()*/) {
                     Toast.makeText(this, "Por favor, insira todas as informações", Toast.LENGTH_SHORT).show()
                 } else {
-
-                    //val alturaFun = binding.alturaSeekbarReferencia
-                    //val alturaFunConversion = alturaFun.toString()
-                    //val pesoFunConversion = Integer.parseInt(pesoFun.text.toString())
-                    //val tirardeclaraddois = java.lang.Float.parseFloat(tirar.text.toString())
-                    //val imcContas: Float =  pesoFunConversion / ((tirardeclaraddois/100) * (tirardeclaraddois/100))
-                    //val intent = Intent(this@MainActivity, BomImcActivity::class.java)
                     calcularImc()
-                    //startActivity(intent)
                 }
             }
 
-                   /* btDeCalcular.setOnClickListener {
-                        val entradaPesoID = binding.entradaPeso.text.toString()
-
-                        if (entradaPesoID.isEmpty() /*|| homem.isPressed.not() || mulher.isPressed.not()*/) {
-                            Toast.makeText(this, "Por favor, insira todas as informações", Toast.LENGTH_SHORT).show()
-                        } else {
-                            calcularImc()
-                        }
-                    } */
 
         }
         private fun calcularImc() {
@@ -78,12 +61,16 @@ import com.raquel.calculator.databinding.ActivityMainBinding
             val imcConta: Float = pesoFunConversion / ((alturaFunConversion/100) * (alturaFunConversion/100))
             val guardar = imcConta.toString()
 
-            if(imcConta >=18.5 ) {
+            if(imcConta >= 18.5 && imcConta < 29.9) {
                 val intent = Intent(this@MainActivity, BomImcActivity::class.java)
                 intent.putExtra("RESULT", guardar)
                 startActivity(intent)
             } else if (imcConta < 18.5){
                 val intent = Intent(this@MainActivity, BaixoImcActivity::class.java)
+                intent.putExtra("RESULT", guardar)
+                startActivity(intent)
+            } else if (imcConta >= 29.9) {
+                val intent = Intent(this@MainActivity, AltoImcActivity::class.java)
                 intent.putExtra("RESULT", guardar)
                 startActivity(intent)
             }

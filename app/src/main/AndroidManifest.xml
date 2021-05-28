@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Calculator">
-        <activity android:name=".BaixoImcActivity"
+        <activity android:name=".AltoImcActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".BaixoImcActivity"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".BomImcActivity"
