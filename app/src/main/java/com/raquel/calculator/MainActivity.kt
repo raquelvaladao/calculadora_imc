@@ -78,8 +78,14 @@ import com.raquel.calculator.databinding.ActivityMainBinding
             val imcConta: Float = pesoFunConversion / ((alturaFunConversion/100) * (alturaFunConversion/100))
             val guardar = imcConta.toString()
 
-            val intent = Intent(this@MainActivity, BomImcActivity::class.java)
-            intent.putExtra("RESULT", guardar)
-            startActivity(intent)
+            if(imcConta >=18.5 ) {
+                val intent = Intent(this@MainActivity, BomImcActivity::class.java)
+                intent.putExtra("RESULT", guardar)
+                startActivity(intent)
+            } else if (imcConta < 18.5){
+                val intent = Intent(this@MainActivity, BaixoImcActivity::class.java)
+                intent.putExtra("RESULT", guardar)
+                startActivity(intent)
+            }
         }
     }
