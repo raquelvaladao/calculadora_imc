@@ -12,12 +12,16 @@ class BomImcActivity : AppCompatActivity() {
         binding = ActivityBomImcBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val textoResultadoActivity2 = binding.resultadoimc
+        val generoText = binding.genero
 
         setupToolbar()
 
         val resultadoDaActivity1 = intent.getStringExtra("RESULT")
+        val generoTextoBom = intent.getStringExtra("GENERO")
 
         textoResultadoActivity2.text = resultadoDaActivity1.toString()
+       generoText.text = generoTextoBom.toString()
+
 
 
     }

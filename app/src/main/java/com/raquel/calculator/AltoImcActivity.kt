@@ -12,12 +12,15 @@ class AltoImcActivity : AppCompatActivity() {
         binding = ActivityAltoImcBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val textoResultadoActivity3 = binding.resultadoimcalto
+        val generoTextoAlto = binding.genero3
 
         setupToolbar()
 
         val resultadoDaActivity1 = intent.getStringExtra("RESULT")
+        val generoAlto = intent.getStringExtra("GENERO")
 
         textoResultadoActivity3.text = resultadoDaActivity1.toString()
+        generoTextoAlto.text = generoAlto.toString()
 
 
     }
