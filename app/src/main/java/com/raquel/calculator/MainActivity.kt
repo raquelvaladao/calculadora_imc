@@ -1,7 +1,6 @@
 package com.raquel.calculator
 
 import android.content.Intent
-import android.net.sip.SipSession
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.SeekBar
@@ -10,7 +9,6 @@ import com.raquel.calculator.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-
         private lateinit var binding: ActivityMainBinding
 
         override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,76 +16,59 @@ class MainActivity : AppCompatActivity() {
             binding = ActivityMainBinding.inflate(layoutInflater)
             setContentView(binding.root)
 
-            val btDeCalcular = binding.btcalculomain
-            val alturaSeekBar = binding.seekBar
-            val generoBotoes = binding.generobt
+            fun InitView(){
+                binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                    override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                        binding.alturaSeekbarReferencia.text = progress.toString()
+                    }
+                    override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                    }
+                    override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                        if (seekBar != null) {
+                            binding.alturaSeekbarReferencia.text = seekBar.progress.toString()
+                        }
+                    }
+                })
 
-            val alturaFun = binding.alturaSeekbarReferencia
-
-
-            alturaSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-                override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                    alturaFun.text = progress.toString()
-                }
-
-                override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                }
-
-                override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                    if (seekBar != null) {
-                        alturaFun.text = seekBar.progress.toString()
+                binding.btcalculomain.setOnClickListener {
+                    if (binding.entradaPeso.text.toString().isEmpty() || binding.generobt.checkedRadioButtonId == -1) {
+                        Toast.makeText(this, "Por favor, insira todas as informações", Toast.LENGTH_SHORT).show()
+                    } else {
+                        calcularImc()
                     }
                 }
-            })
-
-
-
-            btDeCalcular.setOnClickListener {
-                val entradaPesoID = binding.entradaPeso.text.toString()
-
-                if (entradaPesoID.isEmpty() || generoBotoes.checkedRadioButtonId == -1) {
-                    Toast.makeText(this, "Por favor, insira todas as informações", Toast.LENGTH_SHORT).show()
-                } else {
-                    calcularImcGenero()
-                }
             }
+            InitView()
+        }
 
+        private fun generoMudar(){
 
         }
-        private fun calcularImcGenero() {
-            val pesoFun = binding.entradaPeso
-            val alturaFun = binding.alturaSeekbarReferencia
-            val pesoFunConversion = Integer.parseInt(pesoFun.text.toString())
-            val alturaFunConversion = java.lang.Float.parseFloat(alturaFun.text.toString())
+        private fun calcularImc() {
+            val pesoFunConversion = binding.entradaPeso.text.toString().toInt()
+            val alturaFunConversion = binding.alturaSeekbarReferencia.text.toString().toFloat()
             val imcConta: Float = pesoFunConversion / ((alturaFunConversion/100) * (alturaFunConversion/100))
-            val guardar = imcConta.toString()
-
 
             var generoTexto = "homem ou mulher"
-            val generoHomembt = binding.homem
-            val generoMulher = binding.mulher
-            if(generoHomembt.isChecked){
+            if(binding.homem.isChecked){
                 generoTexto = "Homem"
-            } else if (generoMulher.isChecked){
+            } else if (binding.mulher.isChecked){
                 generoTexto = "Mulher"
             }
 
-
             if(imcConta >= 18.5 && imcConta < 29.9) {
-                val intent = Intent(this@MainActivity, BomImcActivity::class.java)
-                intent.putExtra("RESULT", guardar)
-                intent.putExtra("GENERO", generoTexto)
-                startActivity(intent)
+                navigateIntentToShowResults(imcConta.toString(), generoTexto, BomImcActivity::class.java)
             } else if (imcConta < 18.5){
-                val intent = Intent(this@MainActivity, BaixoImcActivity::class.java)
-                intent.putExtra("RESULT", guardar)
-                intent.putExtra("GENERO", generoTexto)
-                startActivity(intent)
+                navigateIntentToShowResults(imcConta.toString(), generoTexto, AltoImcActivity::class.java)
             } else if (imcConta >= 29.9) {
-                val intent = Intent(this@MainActivity, AltoImcActivity::class.java)
-                intent.putExtra("RESULT", guardar)
-                intent.putExtra("GENERO", generoTexto)
-                startActivity(intent)
+                navigateIntentToShowResults(imcConta.toString(), generoTexto, BaixoImcActivity::class.java)
             }
+        }
+
+        private fun <T> navigateIntentToShowResults(paramConta: String, paramGenero: String, paramActivity: Class<T>){
+            val intent = Intent(this@MainActivity, paramActivity)
+            intent.putExtra("RESULT", paramConta.toString())
+            intent.putExtra("GENERO", paramGenero)
+            startActivity(intent)
         }
     }
