@@ -41,9 +41,6 @@ class MainActivity : AppCompatActivity() {
             InitView()
         }
 
-        private fun generoMudar(){
-
-        }
         private fun calcularImc() {
             val pesoFunConversion = binding.entradaPeso.text.toString().toInt()
             val alturaFunConversion = binding.alturaSeekbarReferencia.text.toString().toFloat()
